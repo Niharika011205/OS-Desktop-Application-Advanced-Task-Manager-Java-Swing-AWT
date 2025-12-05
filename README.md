@@ -50,8 +50,7 @@ taskkill /PID <PID> /F
 
 ProcessManager/
 │
-├── src/
-│   └── ProcessManager.java
+├─  ProcessManager.java
 │
 └── README.md
 
