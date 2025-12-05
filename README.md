@@ -2,7 +2,6 @@
 
 A lightweight **Java Swing–based Task Manager** that retrieves real-time system processes using **PowerShell** on Windows.  
 This application allows you to:
-
 ✔ View PID, Process Name, CPU usage, Memory usage  
 ✔ Search processes by name or PID  
 ✔ Refresh the process list  
