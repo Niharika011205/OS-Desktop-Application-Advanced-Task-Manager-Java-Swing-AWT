@@ -1,149 +1,158 @@
-# OS-Desktop-Application-Advanced-Task-Manager-Java-Swing-AWT
+# 🖥️ Advanced Task Manager (Java Desktop)
 
+A lightweight **Java Swing–based Task Manager** that retrieves real-time system processes using **PowerShell** on Windows.  
+This application allows you to:
 
-A desktop-based **Advanced Task Manager** built using Java Swing, AWT, and PowerShell.  
-This application works like a simplified Windows Task Manager, allowing users to **view, search, refresh, and terminate running processes** from a clean desktop GUI.
+✔ View PID, Process Name, CPU usage, Memory usage  
+✔ Search processes by name or PID  
+✔ Refresh the process list  
+✔ Kill/terminate selected processes  
+✔ Clean UI using Java Swing  
 
 ---
 
-## 📌 Features
+## 📸 Screenshot  
+<img width="1326" height="731" alt="Screenshot 2025-11-26 122849" src="https://github.com/user-attachments/assets/cc573381-9ace-4a29-8dc3-54419b421a38" />
+<img width="1318" height="741" alt="Screenshot 2025-11-26 122917" src="https://github.com/user-attachments/assets/c1947b5b-9038-4fb9-b637-e61faa87f6c6" />
+<img width="1345" height="750" alt="Screenshot 2025-11-26 122959" src="https://github.com/user-attachments/assets/f69b73fa-d178-4a62-a6e4-37933555cc86" />
 
-### 🔍 View Running Processes
-Displays detailed information for every running process:
-- **PID** (Process ID)
-- **Process Name**
-- **CPU Usage (%)**
-- **Memory Usage (MB)**
 
-### 🔎 Search Function
-Search running processes by:
-- Full/partial **process name**
-- **PID**
+## 🚀 Features
 
-Search dynamically filters table results.
+### 🔍 Process Monitoring
+- Fetches all running processes using PowerShell.
+- Displays:
+  - **PID**
+  - **Process Name**
+  - **CPU (%)**
+  - **Memory (MB)** (converted from bytes)
 
-### 🔁 Refresh Process List
-Reloads the process list using PowerShell:
-```powershell
-Get-Process | Select-Object Name,Id,CPU,WorkingSet
-❌ Kill (Terminate) Process
-Terminate any selected process using:
+### 🔎 Search
+- Search by **process name** or **PID**
+- Filters results dynamically
 
-powershell
-Copy code
+### 🔄 Refresh
+- Reloads process list with updated CPU/Memory metrics
+
+### ❌ Kill Process
+- Uses Windows `taskkill` to terminate selected processes:
+```
+
 taskkill /PID <PID> /F
-🖥️ Simple Clean UI
-Built using:
 
-Java Swing
+```
 
-AWT Layouts
+---
 
-JTable + JScrollPane
+## 📂 Project Structure
 
-Organized 3-section layout (Search, Table, Controls)
+```
 
-📂 Project Structure
-arduino
-Copy code
-Advanced-Task-Manager/
+ProcessManager/
 │
-├- ProcessManager.java
+├── src/
+│   └── ProcessManager.java
 │
 └── README.md
-🛠️ Requirements
-Software Requirements
-Windows OS
 
-Java JDK 8 or higher
+```
 
-PowerShell enabled (default on Windows)
+---
 
-Technical Notes
-The app uses:
+## ⚙️ Requirements
 
-java
-Copy code
-Runtime.getRuntime().exec("powershell.exe Get-Process...");
-So PowerShell must be available in PATH.
+### 🪟 Windows Only
+This tool works only on **Windows OS**, because it uses:
 
-▶️ How to Run the Application
-1. Compile the Program
-bash
-Copy code
+```
+
+powershell.exe Get-Process
+
+````
+
+### 🧰 Software Requirements
+- **Java 8 or higher**
+- **Windows PowerShell** (default on Windows 7+)
+
+---
+
+## 🛠️ How to Run
+
+### 1️⃣ Clone this repository
+```bash
+git clone https://github.com/your-username/AdvancedTaskManager-Java.git
+cd AdvancedTaskManager-Java
+````
+
+### 2️⃣ Compile the application
+
+```bash
 javac ProcessManager.java
-2. Run the Program
-bash
-Copy code
+```
+
+### 3️⃣ Run the application
+
+```bash
 java ProcessManager
-Optional (Using IDE)
-You can use any IDE:
+```
 
-IntelliJ IDEA
+---
 
-Eclipse
+## 🧩 How It Works
 
-NetBeans
+### ▶ Fetching Processes
 
-Open project → run ProcessManager.java.
+PowerShell command used:
 
-🚀 How It Works
-Fetching Processes
-The app executes:
-
-powershell
-Copy code
+```powershell
 Get-Process | Select-Object Name,Id,CPU,WorkingSet
-Then parses:
+```
 
-CPU (may be empty for idle tasks → replaced by 0)
+### 💾 Memory Conversion
 
-Memory (converted from bytes → MB)
+WorkingSet (bytes) → MB:
 
-Searching
-Reloads full process list → removes rows that don’t match keyword.
+```java
+memBytes / (1024.0 * 1024.0)
+```
 
-Killing Processes
-Uses Windows command:
+### 🔎 Search Logic
 
-powershell
-Copy code
-taskkill /PID <PID> /F
-⚠️ Important Notes
-Some system processes cannot be terminated without admin privileges.
+Matches **keyword** with:
 
-Terminating critical processes may cause:
+* Process name
+* PID
 
-Program crashes
+### ❌ Killing a Process
 
-System instability
+Executes:
 
-Forced reboot
+```bash
+taskkill /PID <pid> /F
+```
 
-CPU values may appear “0” for processes that have not consumed CPU recently (PowerShell behavior).
+---
 
-📄 License
-This project is fully open-source.
-You may use, modify, and distribute it freely for learning or personal development.
+## 📌 Limitations
 
-📬 Need More?
-I can provide:
+* Only works on **Windows OS**
+* Requires admin privileges to terminate some processes
+* CPU value from PowerShell is not real-time; it's cumulative
 
-Dark themed UI
+---
 
-Modern Look-and-Feel
+## 🧮 Future Enhancements
 
-JAR packaging instructions
+* Real-time CPU & RAM graph
+* Sortable table columns
+* Dark mode UI
+* Cross-platform support using OSHI library
 
-Icon-based UI upgrade
+---
 
-Search-as-you-type version
+## 🤝 Contributing
 
-Linux/macOS compatible version
-
-Just ask!
-
-yaml
-Copy code
+Pull requests are welcome!
+Feel free to open an issue for suggestions or bugs.
 
 ---
